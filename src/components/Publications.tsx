@@ -24,22 +24,22 @@ const awards = [
     title: 'OEN Technology Innovation Competition',
     issuer: 'OEN Industries Kerala',
     date: 'Sep 2023',
-    description: 'Led a team of four building a solar off-grid station prototype for schools and colleges, with a Next.js + Firebase app for live charger monitoring.',
-    images: ['/OEN.PNG'],
+    description: 'Led a team building a solar off-grid station prototype for schools, with a Next.js + Firebase app for live monitoring.',
+    image: '/OEN.PNG',
   },
   {
     title: 'Digital Change Makers — Manorama',
     issuer: 'Manorama Online',
     date: 'Feb 2023',
-    description: 'Won 3rd Prize for presenting an Off-Grid Solar Charging Station idea with a companion app. Ceremony telecasted on Manorama News.',
-    images: ['/manorama.JPG'],
+    description: 'Won 3rd Prize for presenting an Off-Grid Solar Charging Station idea. Ceremony telecasted on Manorama News.',
+    image: '/manorama.JPG',
   },
   {
     title: 'Social Prize — University of Auckland',
     issuer: 'University of Auckland Entrepreneurship Program',
     date: 'Jun 2023',
-    description: 'Built a fall detection system for the elderly with a robo buddy for emergencies. Developed 3D models with IoT to send alerts to servers.',
-    images: ['/Ideas-challenge.jpg'],
+    description: 'Built a fall detection system for the elderly with IoT and a robo buddy for emergencies.',
+    image: '/Ideas-challenge.jpg',
   },
 ]
 
@@ -54,66 +54,33 @@ export function Publications() {
       </div>
 
       <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Publications */}
-        <div>
-          <FadeInUp>
-            <div className="flex items-center gap-2 mb-6">
-              <FileText className="w-5 h-5 text-accent-purple" />
-              <h3 className="text-xl font-heading italic text-white">Publications</h3>
-            </div>
-          </FadeInUp>
-          <div className="space-y-4">
-            {publications.map((pub, i) => (
-              <FadeInUp key={pub.title} delay={i * 0.1}>
-                <div className="liquid-glass rounded-2xl p-5 group hover:bg-white/[0.03] transition-colors">
-                  <h4 className="text-sm font-body font-medium text-white leading-snug">{pub.title}</h4>
-                  <p className="font-mono text-[11px] text-accent-purple/70 mt-1.5">{pub.venue}</p>
-                  <p className="font-mono text-[11px] text-white/30 mt-0.5">{pub.date}</p>
-                  <p className="font-body font-light text-white/50 text-xs mt-2 leading-relaxed">{pub.description}</p>
-                  {pub.url && (
-                    <a
-                      href={pub.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 font-mono text-[11px] text-accent-terminal mt-2 hover:underline"
-                    >
-                      Read Paper <ArrowUpRight className="w-3 h-3" />
-                    </a>
-                  )}
-                </div>
-              </FadeInUp>
-            ))}
-          </div>
-        </div>
-
-        {/* Awards & Leadership */}
+        {/* Left column: Publications + Leadership */}
         <div className="space-y-8">
+          {/* Publications */}
           <div>
             <FadeInUp>
               <div className="flex items-center gap-2 mb-6">
-                <Award className="w-5 h-5 text-accent-yellow" />
-                <h3 className="text-xl font-heading italic text-white">Honors & Awards</h3>
+                <FileText className="w-5 h-5 text-accent-purple" />
+                <h3 className="text-xl font-heading italic text-white">Publications</h3>
               </div>
             </FadeInUp>
             <div className="space-y-4">
-              {awards.map((award, i) => (
-                <FadeInUp key={award.title} delay={i * 0.1}>
+              {publications.map((pub, i) => (
+                <FadeInUp key={pub.title} delay={i * 0.1}>
                   <div className="liquid-glass rounded-2xl p-5 group hover:bg-white/[0.03] transition-colors">
-                    <h4 className="text-sm font-body font-medium text-white leading-snug">{award.title}</h4>
-                    <p className="font-mono text-[11px] text-accent-orange/70 mt-1.5">{award.issuer}</p>
-                    <p className="font-mono text-[11px] text-white/30 mt-0.5">{award.date}</p>
-                    <p className="font-body font-light text-white/50 text-xs mt-2 leading-relaxed">{award.description}</p>
-                    {award.images && award.images.length > 0 && (
-                      <div className="flex gap-2 mt-3 overflow-hidden">
-                        {award.images.map((img) => (
-                          <img
-                            key={img}
-                            src={img}
-                            alt=""
-                            className="h-20 w-auto rounded-lg object-cover border border-white/10 hover:border-white/30 transition-colors"
-                          />
-                        ))}
-                      </div>
+                    <h4 className="text-sm font-body font-medium text-white leading-snug">{pub.title}</h4>
+                    <p className="font-mono text-[11px] text-accent-purple/70 mt-1.5">{pub.venue}</p>
+                    <p className="font-mono text-[11px] text-white/30 mt-0.5">{pub.date}</p>
+                    <p className="font-body font-light text-white/50 text-xs mt-2 leading-relaxed">{pub.description}</p>
+                    {pub.url && (
+                      <a
+                        href={pub.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 font-mono text-[11px] text-accent-terminal mt-2 hover:underline"
+                      >
+                        Read Paper <ArrowUpRight className="w-3 h-3" />
+                      </a>
                     )}
                   </div>
                 </FadeInUp>
@@ -121,6 +88,7 @@ export function Publications() {
             </div>
           </div>
 
+          {/* Leadership */}
           <div>
             <FadeInUp>
               <div className="flex items-center gap-2 mb-6">
@@ -145,6 +113,41 @@ export function Publications() {
                 </a>
               </div>
             </FadeInUp>
+          </div>
+        </div>
+
+        {/* Right column: Awards with images */}
+        <div>
+          <FadeInUp>
+            <div className="flex items-center gap-2 mb-6">
+              <Award className="w-5 h-5 text-accent-yellow" />
+              <h3 className="text-xl font-heading italic text-white">Honors & Awards</h3>
+            </div>
+          </FadeInUp>
+          <div className="space-y-4">
+            {awards.map((award, i) => (
+              <FadeInUp key={award.title} delay={i * 0.1}>
+                <div className="liquid-glass rounded-2xl overflow-hidden group hover:bg-white/[0.03] transition-colors">
+                  <div className="flex flex-col sm:flex-row">
+                    {/* Image */}
+                    <div className="sm:w-36 shrink-0">
+                      <img
+                        src={award.image}
+                        alt=""
+                        className="w-full h-28 sm:h-full object-cover"
+                      />
+                    </div>
+                    {/* Text */}
+                    <div className="p-4 flex-1 min-w-0">
+                      <h4 className="text-sm font-body font-medium text-white leading-snug">{award.title}</h4>
+                      <p className="font-mono text-[11px] text-accent-orange/70 mt-1">{award.issuer}</p>
+                      <p className="font-mono text-[11px] text-white/30 mt-0.5">{award.date}</p>
+                      <p className="font-body font-light text-white/50 text-xs mt-1.5 leading-relaxed">{award.description}</p>
+                    </div>
+                  </div>
+                </div>
+              </FadeInUp>
+            ))}
           </div>
         </div>
       </div>
