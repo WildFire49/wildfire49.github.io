@@ -26,6 +26,7 @@ const awards = [
     date: 'Sep 2023',
     description: 'Led a team building a solar off-grid station prototype for schools, with a Next.js + Firebase app for live monitoring.',
     image: '/OEN.PNG',
+    imageStyle: 'cover' as const,
   },
   {
     title: 'Digital Change Makers — Manorama',
@@ -33,6 +34,7 @@ const awards = [
     date: 'Feb 2023',
     description: 'Won 3rd Prize for presenting an Off-Grid Solar Charging Station idea. Ceremony telecasted on Manorama News.',
     image: '/manorama.JPG',
+    imageStyle: 'contain' as const,
   },
   {
     title: 'Social Prize — University of Auckland',
@@ -40,6 +42,7 @@ const awards = [
     date: 'Jun 2023',
     description: 'Built a fall detection system for the elderly with IoT and a robo buddy for emergencies.',
     image: '/Ideas-challenge.jpg',
+    imageStyle: 'contain' as const,
   },
 ]
 
@@ -130,11 +133,11 @@ export function Publications() {
                 <div className="liquid-glass rounded-2xl overflow-hidden group hover:bg-white/[0.03] transition-colors">
                   <div className="flex flex-col sm:flex-row">
                     {/* Image */}
-                    <div className="sm:w-36 shrink-0">
+                    <div className={`${award.imageStyle === 'cover' ? 'sm:w-52' : 'sm:w-36'} shrink-0 bg-white/5`}>
                       <img
                         src={award.image}
                         alt=""
-                        className="w-full h-28 sm:h-full object-cover"
+                        className={`w-full h-32 sm:h-full ${award.imageStyle === 'cover' ? 'object-cover' : 'object-contain'}`}
                       />
                     </div>
                     {/* Text */}
