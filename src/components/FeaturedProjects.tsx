@@ -1,4 +1,4 @@
-import { ArrowUpRight, Star } from 'lucide-react'
+import { ArrowUpRight, Star, Linkedin } from 'lucide-react'
 import { motion, useInView } from 'motion/react'
 import { useRef } from 'react'
 import { SectionBadge } from './ui/SectionBadge'
@@ -10,16 +10,18 @@ interface Project {
   tags: string[]
   stars?: number
   url: string
+  linkedinUrl?: string
   reversed?: boolean
 }
 
 const projects: Project[] = [
   {
     name: 'Chroma DB Explorer',
-    description: 'A web interface for browsing and searching ChromaDB vector collections. Connect to any instance, explore documents, metadata, and vector data.',
+    description: 'The first open-source ChromaDB GUI. Browse collections, inspect embeddings, run semantic searches, and manage vector data — all from a lightweight web interface.',
     tags: ['TypeScript', 'ChromaDB', 'React'],
     stars: 3,
     url: 'https://github.com/WildFire49/chroma-db-explorer',
+    linkedinUrl: 'https://www.linkedin.com/posts/vaishakh-krishnan_chroma-db-ui-best-chromadb-gui-vector-activity-7372661718956564480-IRFs',
   },
   {
     name: 'Multi-Agent Orchestration',
@@ -29,11 +31,12 @@ const projects: Project[] = [
     reversed: true,
   },
   {
-    name: 'SplitPaisa',
-    description: 'Expense sharing app with smart settlement calculations, trip management, and real-time debt tracking.',
-    tags: ['Next.js', 'Supabase', 'React'],
+    name: 'VoiceCanvas AI',
+    description: 'Built at the ElevenLabs x a16z Hackathon. Turns silent videos into professionally narrated content — analyzes frames with Gemini, generates scripts, and syncs studio-quality voiceovers. 2 hours of work in under 5 minutes.',
+    tags: ['Next.js', 'Python', 'Gemini', 'ElevenLabs API'],
     stars: 1,
-    url: 'https://github.com/WildFire49/SplitPaisa',
+    url: 'https://github.com/WildFire49/elevenlabs-hackathon',
+    linkedinUrl: 'https://www.linkedin.com/posts/vaishakh-krishnan_just-hacked-the-future-of-video-storytelling-activity-7299657060617527296-mNNQ',
   },
   {
     name: 'Doctor Buddy',
@@ -43,11 +46,11 @@ const projects: Project[] = [
     reversed: true,
   },
   {
-    name: 'AI Video Narrator',
-    description: 'Video-to-voiceover generation platform. Upload videos, auto-generate narration scripts with AI, and produce professional voiceovers with multiple TTS providers.',
-    tags: ['Next.js', 'FastAPI', 'Docker', 'Google AI'],
+    name: 'SplitPaisa',
+    description: 'Expense sharing app with smart settlement calculations, trip management, and real-time debt tracking.',
+    tags: ['Next.js', 'Supabase', 'React'],
     stars: 1,
-    url: 'https://github.com/WildFire49/elevenlabs-hackathon',
+    url: 'https://github.com/WildFire49/SplitPaisa',
   },
 ]
 
@@ -85,6 +88,16 @@ function ProjectRow({ project }: { project: Project }) {
           >
             View on GitHub <ArrowUpRight className="w-3.5 h-3.5" />
           </a>
+          {project.linkedinUrl && (
+            <a
+              href={project.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="liquid-glass rounded-full px-4 py-2.5 text-sm font-medium text-foreground/70 font-body flex items-center gap-2 hover:text-[#0A66C2] transition-colors"
+            >
+              <Linkedin className="w-3.5 h-3.5" /> Post
+            </a>
+          )}
           {project.stars !== undefined && project.stars > 0 && (
             <span className="flex items-center gap-1 text-xs text-white/50 font-mono">
               <Star className="w-3.5 h-3.5 fill-yellow-500 text-yellow-500" />
