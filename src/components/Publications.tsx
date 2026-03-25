@@ -25,7 +25,14 @@ const awards = [
     issuer: 'OEN Industries Kerala',
     date: 'Sep 2023',
     description: 'Led a team of four building a solar off-grid station prototype for schools and colleges, with a Next.js + Firebase app for live charger monitoring.',
-    images: ['/OEN.PNG', '/manorama.JPG'],
+    images: ['/OEN.PNG'],
+  },
+  {
+    title: 'Digital Change Makers — Manorama',
+    issuer: 'Manorama Online',
+    date: 'Feb 2023',
+    description: 'Won 3rd Prize for presenting an Off-Grid Solar Charging Station idea with a companion app. Ceremony telecasted on Manorama News.',
+    images: ['/manorama.JPG'],
   },
   {
     title: 'Social Prize — University of Auckland',
