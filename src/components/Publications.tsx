@@ -58,65 +58,55 @@ export function Publications() {
 
       <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
         {/* Left column: Publications + Leadership */}
-        <div className="flex flex-col gap-8">
-          {/* Publications */}
-          <div>
-            <FadeInUp>
-              <div className="flex items-center gap-2 mb-6">
-                <FileText className="w-5 h-5 text-accent-purple" />
-                <h3 className="text-xl font-heading italic text-white">Publications</h3>
-              </div>
-            </FadeInUp>
-            <div className="space-y-4">
-              {publications.map((pub, i) => (
-                <FadeInUp key={pub.title} delay={i * 0.1}>
-                  <div className="liquid-glass rounded-2xl p-5 group hover:bg-white/[0.03] transition-colors">
-                    <h4 className="text-sm font-body font-medium text-white leading-snug">{pub.title}</h4>
-                    <p className="font-mono text-[11px] text-accent-purple/70 mt-1.5">{pub.venue}</p>
-                    <p className="font-mono text-[11px] text-white/30 mt-0.5">{pub.date}</p>
-                    <p className="font-body font-light text-white/50 text-xs mt-2 leading-relaxed">{pub.description}</p>
-                    {pub.url && (
-                      <a
-                        href={pub.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 font-mono text-[11px] text-accent-terminal mt-2 hover:underline"
-                      >
-                        Read Paper <ArrowUpRight className="w-3 h-3" />
-                      </a>
-                    )}
-                  </div>
-                </FadeInUp>
-              ))}
+        <div className="flex flex-col gap-4">
+          <FadeInUp>
+            <div className="flex items-center gap-2 mb-2">
+              <FileText className="w-5 h-5 text-accent-purple" />
+              <h3 className="text-xl font-heading italic text-white">Publications</h3>
             </div>
-          </div>
-
-          {/* Leadership */}
-          <div>
-            <FadeInUp>
-              <div className="flex items-center gap-2 mb-6">
-                <Users className="w-5 h-5 text-accent-green" />
-                <h3 className="text-xl font-heading italic text-white">Leadership</h3>
-              </div>
-            </FadeInUp>
-            <FadeInUp delay={0.1}>
+          </FadeInUp>
+          {publications.map((pub, i) => (
+            <FadeInUp key={pub.title} delay={i * 0.1}>
               <div className="liquid-glass rounded-2xl p-5 group hover:bg-white/[0.03] transition-colors">
-                <h4 className="text-sm font-body font-medium text-white leading-snug">Co-Founder — amESE Club</h4>
-                <p className="font-mono text-[11px] text-accent-green/70 mt-1.5">Amrita Vishwa Vidyapeetham</p>
-                <p className="font-body font-light text-white/50 text-xs mt-2 leading-relaxed">
-                  Co-founded the amESE (Amrita Mechanical Engineering Society of Engineers) Club, building a community around engineering innovation and hands-on projects.
-                </p>
-                <a
-                  href="https://webfiles.amrita.edu/2025/02/amese-club-mechanical-engineering-amritapuri.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-mono text-[11px] text-accent-terminal mt-2 hover:underline"
-                >
-                  Newsletter <ArrowUpRight className="w-3 h-3" />
-                </a>
+                <h4 className="text-sm font-body font-medium text-white leading-snug">{pub.title}</h4>
+                <p className="font-mono text-[11px] text-accent-purple/70 mt-1.5">{pub.venue}</p>
+                <p className="font-mono text-[11px] text-white/30 mt-0.5">{pub.date}</p>
+                <p className="font-body font-light text-white/50 text-xs mt-2 leading-relaxed">{pub.description}</p>
+                {pub.url && (
+                  <a
+                    href={pub.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 font-mono text-[11px] text-accent-terminal mt-2 hover:underline"
+                  >
+                    Read Paper <ArrowUpRight className="w-3 h-3" />
+                  </a>
+                )}
               </div>
             </FadeInUp>
-          </div>
+          ))}
+
+          {/* Leadership — compact, no separate header taking space */}
+          <FadeInUp delay={0.2}>
+            <div className="liquid-glass rounded-2xl p-5 group hover:bg-white/[0.03] transition-colors">
+              <div className="flex items-center gap-2 mb-2">
+                <Users className="w-4 h-4 text-accent-green" />
+                <h4 className="text-sm font-body font-medium text-white">Co-Founder — amESE Club</h4>
+              </div>
+              <p className="font-mono text-[11px] text-accent-green/70">Amrita Vishwa Vidyapeetham</p>
+              <p className="font-body font-light text-white/50 text-xs mt-1.5 leading-relaxed">
+                Co-founded the amESE Club, building a community around engineering innovation and hands-on projects.
+              </p>
+              <a
+                href="https://webfiles.amrita.edu/2025/02/amese-club-mechanical-engineering-amritapuri.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 font-mono text-[11px] text-accent-terminal mt-1.5 hover:underline"
+              >
+                Newsletter <ArrowUpRight className="w-3 h-3" />
+              </a>
+            </div>
+          </FadeInUp>
         </div>
 
         {/* Right column: Awards with images */}
@@ -131,7 +121,7 @@ export function Publications() {
             {awards.map((award, i) => (
               <FadeInUp key={award.title} delay={i * 0.1}>
                 <div className="liquid-glass rounded-2xl overflow-hidden group hover:bg-white/[0.03] transition-colors border-none !border-0">
-                  <div className="flex flex-col sm:flex-row sm:h-[140px]">
+                  <div className="flex flex-col sm:flex-row">
                     {/* Image */}
                     <div className="sm:w-52 shrink-0 bg-white/5">
                       <img
