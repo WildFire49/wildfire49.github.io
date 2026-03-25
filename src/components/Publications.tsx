@@ -86,13 +86,16 @@ export function Publications() {
             </FadeInUp>
           ))}
 
-          {/* Leadership — compact, no separate header taking space */}
+          {/* Leadership */}
           <FadeInUp delay={0.2}>
+            <div className="flex items-center gap-2 mt-4 mb-0">
+              <Users className="w-4 h-4 text-accent-green" />
+              <h3 className="text-lg font-heading italic text-white">Leadership</h3>
+            </div>
+          </FadeInUp>
+          <FadeInUp delay={0.25}>
             <div className="liquid-glass rounded-2xl p-5 group hover:bg-white/[0.03] transition-colors">
-              <div className="flex items-center gap-2 mb-2">
-                <Users className="w-4 h-4 text-accent-green" />
-                <h4 className="text-sm font-body font-medium text-white">Co-Founder — amESE Club</h4>
-              </div>
+              <h4 className="text-sm font-body font-medium text-white leading-snug">Co-Founder — amESE Club</h4>
               <p className="font-mono text-[11px] text-accent-green/70">Amrita Vishwa Vidyapeetham</p>
               <p className="font-body font-light text-white/50 text-xs mt-1.5 leading-relaxed">
                 Co-founded the amESE Club, building a community around engineering innovation and hands-on projects.
