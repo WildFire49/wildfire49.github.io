@@ -42,7 +42,7 @@ const awards = [
     date: 'Jun 2023',
     description: 'Built a fall detection system for the elderly with IoT and a robo buddy for emergencies.',
     image: '/Ideas-challenge.jpg',
-    imageStyle: 'contain' as const,
+    imageStyle: 'cover' as const,
   },
 ]
 
