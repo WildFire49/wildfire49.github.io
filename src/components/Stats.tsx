@@ -3,10 +3,10 @@ import { FadeInUp } from './ui/FadeInUp'
 import { HlsVideo } from './ui/HlsVideo'
 
 const stats = [
-  { value: 2, suffix: '+', label: 'Years Experience', decimals: 0 },
+  { value: 2, suffix: '+', label: 'Years Building', decimals: 0 },
   { value: 15, suffix: '+', label: 'Screens Shipped', decimals: 0 },
   { value: 6, suffix: '', label: 'Open Source Projects', decimals: 0 },
-  { value: 8.69, suffix: '', label: 'CGPA', decimals: 2 },
+  { value: 5, suffix: '+', label: 'AI Systems Deployed', decimals: 0 },
 ]
 
 export function Stats() {

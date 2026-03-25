@@ -24,8 +24,12 @@ const warpBlocks: WarpBlock[] = [
     type: 'text',
     output: [
       'Vaishakh Krishnan',
-      'AI Engineer  ·  Full-Stack Developer  ·  System Architect',
-      'Bengaluru, India',
+      'AI Engineer who lives on X hunting for the next breakthrough.',
+      'I experiment relentlessly, solve problems head-on with AI,',
+      'and believe that being able to think is the real superpower.',
+      '',
+      'Also a hardcore Ferrari fan since the Schumacher era.',
+      'If my code had a livery, it would be Rosso Corsa.',
     ],
   },
   {
@@ -58,27 +62,29 @@ function JPunc({ children }: { children: string }) {
 function JsonBlock({ baseDelay }: { baseDelay: number }) {
   const lines: { indent: number; node: React.ReactNode }[] = [
     { indent: 0, node: <JBrace>{'{'}</JBrace> },
-    { indent: 1, node: <><JKey>languages</JKey><JPunc>{': ['}</JPunc><JStr>Python</JStr><JPunc>{', '}</JPunc><JStr>TypeScript</JStr><JPunc>{', '}</JPunc><JStr>JavaScript</JStr><JPunc>{'],'}</JPunc></> },
-    { indent: 1, node: <><JKey>ai_engineering</JKey><JPunc>{': ['}</JPunc><JStr>LangGraph</JStr><JPunc>{', '}</JPunc><JStr>LangChain</JStr><JPunc>{', '}</JPunc><JStr>RAG</JStr><JPunc>{', '}</JPunc><JStr>Temporal</JStr><JPunc>{'],'}</JPunc></> },
-    { indent: 1, node: <><JKey>frontend</JKey><JPunc>{': ['}</JPunc><JStr>React</JStr><JPunc>{', '}</JPunc><JStr>Next.js</JStr><JPunc>{', '}</JPunc><JStr>Tailwind CSS</JStr><JPunc>{'],'}</JPunc></> },
-    { indent: 1, node: <><JKey>backend</JKey><JPunc>{': ['}</JPunc><JStr>FastAPI</JStr><JPunc>{', '}</JPunc><JStr>Node.js</JStr><JPunc>{', '}</JPunc><JStr>PostgreSQL</JStr><JPunc>{', '}</JPunc><JStr>Redis</JStr><JPunc>{'],'}</JPunc></> },
-    { indent: 1, node: <><JKey>infrastructure</JKey><JPunc>{': ['}</JPunc><JStr>AWS</JStr><JPunc>{', '}</JPunc><JStr>Docker</JStr><JPunc>{', '}</JPunc><JStr>Kubernetes</JStr><JPunc>{', '}</JPunc><JStr>CI/CD</JStr><JPunc>{'],'}</JPunc></> },
-    { indent: 1, node: <><JKey>specialties</JKey><JPunc>{': ['}</JPunc><JStr>Multi-Agent Systems</JStr><JPunc>{', '}</JPunc><JStr>Voice AI Pipelines</JStr><JPunc>{', '}</JPunc><JStr>Knowledge Graphs</JStr><JPunc>{']'}</JPunc></> },
+    { indent: 1, node: <><JKey>languages</JKey><JPunc>{':  ['}</JPunc><JStr>Python</JStr><JPunc>{', '}</JPunc><JStr>TypeScript</JStr><JPunc>{', '}</JPunc><JStr>JavaScript</JStr><JPunc>{'],'}</JPunc></> },
+    { indent: 1, node: <><JKey>ai</JKey><JPunc>{':          ['}</JPunc><JStr>LangGraph</JStr><JPunc>{', '}</JPunc><JStr>Multi-Agent RAG</JStr><JPunc>{', '}</JPunc><JStr>Temporal</JStr><JPunc>{', '}</JPunc><JStr>PageRank</JStr><JPunc>{'],'}</JPunc></> },
+    { indent: 1, node: <><JKey>frontend</JKey><JPunc>{':    ['}</JPunc><JStr>React</JStr><JPunc>{', '}</JPunc><JStr>Next.js</JStr><JPunc>{', '}</JPunc><JStr>Tailwind CSS</JStr><JPunc>{'],'}</JPunc></> },
+    { indent: 1, node: <><JKey>backend</JKey><JPunc>{':     ['}</JPunc><JStr>FastAPI</JStr><JPunc>{', '}</JPunc><JStr>Node.js</JStr><JPunc>{', '}</JPunc><JStr>PostgreSQL</JStr><JPunc>{', '}</JPunc><JStr>Redis</JStr><JPunc>{'],'}</JPunc></> },
+    { indent: 1, node: <><JKey>realtime</JKey><JPunc>{':    ['}</JPunc><JStr>LiveKit</JStr><JPunc>{', '}</JPunc><JStr>WebRTC</JStr><JPunc>{', '}</JPunc><JStr>Pipecat</JStr><JPunc>{'],'}</JPunc></> },
+    { indent: 1, node: <><JKey>infra</JKey><JPunc>{':       ['}</JPunc><JStr>AWS</JStr><JPunc>{', '}</JPunc><JStr>Vultr</JStr><JPunc>{', '}</JPunc><JStr>Docker</JStr><JPunc>{', '}</JPunc><JStr>Kubernetes</JStr><JPunc>{'],'}</JPunc></> },
+    { indent: 1, node: <><JKey>security</JKey><JPunc>{':    ['}</JPunc><JStr>VAPT</JStr><JPunc>{', '}</JPunc><JStr>Penetration Testing</JStr><JPunc>{']'}</JPunc></> },
     { indent: 0, node: <JBrace>{'}'}</JBrace> },
   ]
 
   return (
-    <div className="px-4 py-3 font-mono text-xs leading-[1.7]">
+    <div className="px-4 py-3 font-mono text-xs leading-[1.8] text-left">
       {lines.map((line, i) => (
         <motion.div
           key={i}
+          className="whitespace-nowrap"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2, delay: baseDelay + 0.3 + i * 0.1 }}
-          style={{ paddingLeft: `${line.indent * 20}px` }}
+          style={{ paddingLeft: `${line.indent * 16}px` }}
         >
           {i > 0 && i < lines.length - 1 && (
-            <span className="text-white/10 select-none mr-3">{i}</span>
+            <span className="text-white/10 select-none w-5 inline-block text-right mr-3">{i}</span>
           )}
           {line.node}
         </motion.div>
