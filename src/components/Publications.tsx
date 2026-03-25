@@ -34,7 +34,7 @@ const awards = [
     date: 'Feb 2023',
     description: 'Won 3rd Prize for presenting an Off-Grid Solar Charging Station idea. Ceremony telecasted on Manorama News.',
     image: '/manorama.JPG',
-    imageStyle: 'contain' as const,
+    imageStyle: 'cover' as const,
   },
   {
     title: 'Social Prize — University of Auckland',
@@ -130,7 +130,7 @@ export function Publications() {
           <div className="space-y-4">
             {awards.map((award, i) => (
               <FadeInUp key={award.title} delay={i * 0.1}>
-                <div className="liquid-glass rounded-2xl overflow-hidden group hover:bg-white/[0.03] transition-colors">
+                <div className="liquid-glass rounded-2xl overflow-hidden group hover:bg-white/[0.03] transition-colors border-none !border-0">
                   <div className="flex flex-col sm:flex-row">
                     {/* Image */}
                     <div className={`${award.imageStyle === 'cover' ? 'sm:w-52' : 'sm:w-36'} shrink-0 bg-white/5`}>
