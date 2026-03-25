@@ -35,6 +35,20 @@ const projects: Project[] = [
     stars: 1,
     url: 'https://github.com/WildFire49/SplitPaisa',
   },
+  {
+    name: 'Doctor Buddy',
+    description: 'Doctor consultation management platform with AI-powered analysis. Records patient sessions, transcribes audio, and generates diagnosis summaries using OpenAI.',
+    tags: ['Flutter', 'Next.js', 'Firebase', 'OpenAI'],
+    url: 'https://github.com/WildFire49/doctor-buddy',
+    reversed: true,
+  },
+  {
+    name: 'AI Video Narrator',
+    description: 'Video-to-voiceover generation platform. Upload videos, auto-generate narration scripts with AI, and produce professional voiceovers with multiple TTS providers.',
+    tags: ['Next.js', 'FastAPI', 'Docker', 'Google AI'],
+    stars: 1,
+    url: 'https://github.com/WildFire49/elevenlabs-hackathon',
+  },
 ]
 
 function ProjectRow({ project }: { project: Project }) {
