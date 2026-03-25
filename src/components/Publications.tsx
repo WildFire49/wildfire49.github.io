@@ -25,12 +25,14 @@ const awards = [
     issuer: 'OEN Industries Kerala',
     date: 'Sep 2023',
     description: 'Led a team of four building a solar off-grid station prototype for schools and colleges, with a Next.js + Firebase app for live charger monitoring.',
+    images: ['/OEN.PNG', '/manorama.JPG'],
   },
   {
     title: 'Social Prize — University of Auckland',
     issuer: 'University of Auckland Entrepreneurship Program',
     date: 'Jun 2023',
     description: 'Built a fall detection system for the elderly with a robo buddy for emergencies. Developed 3D models with IoT to send alerts to servers.',
+    images: ['/Ideas-challenge.jpg'],
   },
 ]
 
@@ -94,6 +96,18 @@ export function Publications() {
                     <p className="font-mono text-[11px] text-accent-orange/70 mt-1.5">{award.issuer}</p>
                     <p className="font-mono text-[11px] text-white/30 mt-0.5">{award.date}</p>
                     <p className="font-body font-light text-white/50 text-xs mt-2 leading-relaxed">{award.description}</p>
+                    {award.images && award.images.length > 0 && (
+                      <div className="flex gap-2 mt-3 overflow-hidden">
+                        {award.images.map((img) => (
+                          <img
+                            key={img}
+                            src={img}
+                            alt=""
+                            className="h-20 w-auto rounded-lg object-cover border border-white/10 hover:border-white/30 transition-colors"
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </FadeInUp>
               ))}

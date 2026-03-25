@@ -246,29 +246,6 @@ export function Hero() {
                 </div>
               </motion.div>
 
-              {/* Ferrari F1 racing across the terminal */}
-              <div className="overflow-hidden rounded-xl h-10 relative">
-                <motion.div
-                  className="absolute top-0"
-                  initial={{ x: '-120px' }}
-                  animate={{ x: 'calc(100% + 120px)' }}
-                  transition={{
-                    duration: 3,
-                    delay: 3.5,
-                    ease: [0.2, 0.0, 0.3, 1],
-                    repeat: Infinity,
-                    repeatDelay: 10,
-                  }}
-                >
-                  <img
-                    src="/ferrari.png"
-                    alt=""
-                    className="h-8 w-auto drop-shadow-[0_0_12px_rgba(255,50,50,0.4)]"
-                    style={{ mixBlendMode: 'screen' }}
-                  />
-                </motion.div>
-              </div>
-
               {/* Active input block */}
               <motion.div
                 className="rounded-xl border border-accent-terminal/30 bg-accent-terminal/[0.03] px-4 py-2.5 flex items-center gap-2"
