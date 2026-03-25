@@ -8,12 +8,14 @@ const publications = [
     venue: 'ICCCNT 2024 — Fifteenth International Conference on Computing, Communication and Networking Technologies',
     date: 'Jun 2024',
     description: 'Compared centralized and federated models with various strategies to help medical facilities keep patient data private. Identified 2 optimal strategies for healthcare.',
+    url: 'https://ieeexplore.ieee.org/document/10725147',
   },
   {
     title: "Securing Supply Chains: Blockchain's Shield Against Counterfeit Products",
     venue: 'ICCSIT 2024',
     date: 'Apr 2024',
     description: 'Explored blockchain-based solutions to protect supply chains against counterfeiting in global trade facilitation.',
+    url: 'https://easychair.org/publications/paper/hN3M/open',
   },
 ]
 
@@ -59,6 +61,16 @@ export function Publications() {
                   <p className="font-mono text-[11px] text-accent-purple/70 mt-1.5">{pub.venue}</p>
                   <p className="font-mono text-[11px] text-white/30 mt-0.5">{pub.date}</p>
                   <p className="font-body font-light text-white/50 text-xs mt-2 leading-relaxed">{pub.description}</p>
+                  {pub.url && (
+                    <a
+                      href={pub.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 font-mono text-[11px] text-accent-terminal mt-2 hover:underline"
+                    >
+                      Read Paper <ArrowUpRight className="w-3 h-3" />
+                    </a>
+                  )}
                 </div>
               </FadeInUp>
             ))}
