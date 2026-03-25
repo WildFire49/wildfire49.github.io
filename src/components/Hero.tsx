@@ -3,141 +3,82 @@ import { ArrowUpRight } from 'lucide-react'
 import { BlurText } from './ui/BlurText'
 import { TypeWriter } from './ui/TypeWriter'
 import { FaGithub } from 'react-icons/fa'
+import { useState, useEffect } from 'react'
 
-interface WarpBlock {
-  prompt: string
-  command: string
-  type: 'text' | 'json'
-  output?: string[]
-  json?: JsonLine[]
-}
+// Typing animation that reveals lines one at a time
+function TypingLines({ lines, baseDelay }: { lines: { text: string; className?: string }[]; baseDelay: number }) {
+  const [visibleCount, setVisibleCount] = useState(0)
 
-interface JsonLine {
-  indent: number
-  content: React.ReactNode
-}
-
-const warpBlocks: WarpBlock[] = [
-  {
-    prompt: 'vaishakh in ~/dev',
-    command: 'whoami --verbose',
-    type: 'text',
-    output: [
-      'Vaishakh Krishnan',
-      'AI Engineer who lives on X hunting for the next breakthrough.',
-      'I experiment relentlessly, solve problems head-on with AI,',
-      'and believe that being able to think is the real superpower.',
-      '',
-      'Also a hardcore Ferrari fan since the Schumacher era.',
-      'If my code had a livery, it would be Rosso Corsa.',
-    ],
-  },
-  {
-    prompt: 'vaishakh in ~/dev',
-    command: 'cat stack.json | jq .',
-    type: 'json',
-  },
-  {
-    prompt: 'vaishakh in ~/dev',
-    command: 'echo $STATUS',
-    type: 'text',
-    output: ['Ready to build something extraordinary.'],
-  },
-]
-
-// Syntax-highlighted JSON token components
-function JKey({ children }: { children: string }) {
-  return <span className="text-accent-purple">{`"${children}"`}</span>
-}
-function JStr({ children }: { children: string }) {
-  return <span className="text-accent-green">{`"${children}"`}</span>
-}
-function JBrace({ children }: { children: string }) {
-  return <span className="text-white/70 font-semibold">{children}</span>
-}
-function JPunc({ children }: { children: string }) {
-  return <span className="text-white/30">{children}</span>
-}
-
-function JsonBlock({ baseDelay }: { baseDelay: number }) {
-  const lines: { indent: number; node: React.ReactNode }[] = [
-    { indent: 0, node: <JBrace>{'{'}</JBrace> },
-    { indent: 1, node: <><JKey>languages</JKey><JPunc>{':  ['}</JPunc><JStr>Python</JStr><JPunc>{', '}</JPunc><JStr>TypeScript</JStr><JPunc>{', '}</JPunc><JStr>JavaScript</JStr><JPunc>{'],'}</JPunc></> },
-    { indent: 1, node: <><JKey>ai</JKey><JPunc>{':          ['}</JPunc><JStr>LangGraph</JStr><JPunc>{', '}</JPunc><JStr>Multi-Agent RAG</JStr><JPunc>{', '}</JPunc><JStr>Temporal</JStr><JPunc>{', '}</JPunc><JStr>PageRank</JStr><JPunc>{'],'}</JPunc></> },
-    { indent: 1, node: <><JKey>frontend</JKey><JPunc>{':    ['}</JPunc><JStr>React</JStr><JPunc>{', '}</JPunc><JStr>Next.js</JStr><JPunc>{', '}</JPunc><JStr>Tailwind CSS</JStr><JPunc>{'],'}</JPunc></> },
-    { indent: 1, node: <><JKey>backend</JKey><JPunc>{':     ['}</JPunc><JStr>FastAPI</JStr><JPunc>{', '}</JPunc><JStr>Node.js</JStr><JPunc>{', '}</JPunc><JStr>PostgreSQL</JStr><JPunc>{', '}</JPunc><JStr>Redis</JStr><JPunc>{'],'}</JPunc></> },
-    { indent: 1, node: <><JKey>realtime</JKey><JPunc>{':    ['}</JPunc><JStr>LiveKit</JStr><JPunc>{', '}</JPunc><JStr>WebRTC</JStr><JPunc>{', '}</JPunc><JStr>Pipecat</JStr><JPunc>{'],'}</JPunc></> },
-    { indent: 1, node: <><JKey>infra</JKey><JPunc>{':       ['}</JPunc><JStr>AWS</JStr><JPunc>{', '}</JPunc><JStr>Vultr</JStr><JPunc>{', '}</JPunc><JStr>Docker</JStr><JPunc>{', '}</JPunc><JStr>Kubernetes</JStr><JPunc>{'],'}</JPunc></> },
-    { indent: 1, node: <><JKey>security</JKey><JPunc>{':    ['}</JPunc><JStr>VAPT</JStr><JPunc>{', '}</JPunc><JStr>Penetration Testing</JStr><JPunc>{']'}</JPunc></> },
-    { indent: 0, node: <JBrace>{'}'}</JBrace> },
-  ]
+  useEffect(() => {
+    if (visibleCount >= lines.length) return
+    const timeout = setTimeout(() => {
+      setVisibleCount((c) => c + 1)
+    }, baseDelay * 1000 + visibleCount * 120)
+    return () => clearTimeout(timeout)
+  }, [visibleCount, lines.length, baseDelay])
 
   return (
-    <div className="px-4 py-3 font-mono text-xs leading-[1.8] text-left">
-      {lines.map((line, i) => (
+    <div className="px-4 py-3 text-left space-y-0.5">
+      {lines.slice(0, visibleCount).map((line, i) => (
         <motion.div
           key={i}
-          className="whitespace-nowrap"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.2, delay: baseDelay + 0.3 + i * 0.1 }}
-          style={{ paddingLeft: `${line.indent * 16}px` }}
+          className={`font-mono text-xs ${line.className || 'text-white/50'}`}
+          initial={{ opacity: 0, x: -4 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.15 }}
         >
-          {i > 0 && i < lines.length - 1 && (
-            <span className="text-white/10 select-none w-5 inline-block text-right mr-3">{i}</span>
-          )}
-          {line.node}
+          {line.text || '\u00A0'}
         </motion.div>
       ))}
+      {visibleCount < lines.length && (
+        <span className="animate-pulse text-accent-terminal font-mono text-xs">_</span>
+      )}
     </div>
   )
 }
 
-function WarpCommandBlock({ block, index }: { block: WarpBlock; index: number }) {
-  const baseDelay = 0.8 + index * 0.6
-
+// Neofetch-style key-value skill display
+function SkillRow({ label, values, color, baseDelay, index }: {
+  label: string
+  values: string[]
+  color: string
+  baseDelay: number
+  index: number
+}) {
   return (
     <motion.div
-      className="rounded-xl bg-[var(--color-warp-block)] border border-white/[0.06] overflow-hidden"
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: baseDelay, ease: 'easeOut' }}
+      className="flex gap-0 font-mono text-xs"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.2, delay: baseDelay + 0.3 + index * 0.12 }}
     >
-      {/* Command line with prompt */}
-      <div className="px-4 py-2.5 flex items-center gap-2 border-b border-white/[0.04]">
-        <span className="text-accent-purple font-mono text-xs">{block.prompt}</span>
-        <span className="text-white/20 font-mono text-xs">$</span>
-        <motion.span
-          className="text-foreground font-mono text-xs font-medium"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: baseDelay + 0.2 }}
-        >
-          {block.command}
-        </motion.span>
-      </div>
-
-      {/* Output */}
-      {block.type === 'json' ? (
-        <JsonBlock baseDelay={baseDelay} />
-      ) : (
-        <div className="px-4 py-3 space-y-0.5">
-          {block.output?.map((line, i) => (
-            <motion.div
-              key={i}
-              className="font-mono text-xs text-white/50"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.25, delay: baseDelay + 0.3 + i * 0.08 }}
-            >
-              {line}
-            </motion.div>
-          ))}
-        </div>
-      )}
+      <span className="w-[100px] shrink-0 text-right pr-2" style={{ color }}>{label}</span>
+      <span className="text-white/20 pr-2">~</span>
+      <span className="text-white/60">{values.join(' · ')}</span>
     </motion.div>
   )
 }
+
+const skillRows = [
+  { label: 'languages', values: ['Python', 'TypeScript', 'JavaScript'], color: 'var(--color-accent-purple)' },
+  { label: 'ai', values: ['LangGraph', 'Multi-Agent RAG', 'Temporal', 'PageRank'], color: 'var(--color-accent-purple)' },
+  { label: 'frontend', values: ['React', 'Next.js', 'Tailwind CSS'], color: 'var(--color-accent-blue)' },
+  { label: 'backend', values: ['FastAPI', 'Node.js', 'PostgreSQL', 'Redis'], color: 'var(--color-accent-blue)' },
+  { label: 'realtime', values: ['LiveKit', 'WebRTC', 'Pipecat'], color: 'var(--color-accent-green)' },
+  { label: 'infra', values: ['AWS', 'Vultr', 'Docker', 'Kubernetes'], color: 'var(--color-accent-orange)' },
+  { label: 'security', values: ['VAPT', 'Penetration Testing'], color: 'var(--color-accent-red)' },
+]
+
+const whoamiLines = [
+  { text: 'Vaishakh Krishnan', className: 'text-foreground font-medium text-sm' },
+  { text: '' },
+  { text: 'AI Engineer who lives on X hunting for the next breakthrough.' },
+  { text: 'I experiment relentlessly, solve problems head-on with AI,' },
+  { text: 'and believe that being able to think is the real superpower.' },
+  { text: '' },
+  { text: 'Also a hardcore Ferrari fan since the Schumacher era.', className: 'text-accent-red/70' },
+  { text: 'If my code had a livery, it would be Rosso Corsa.', className: 'text-accent-red/70' },
+]
 
 export function Hero() {
   return (
@@ -247,16 +188,70 @@ export function Hero() {
 
             {/* Warp command blocks */}
             <div className="p-3 space-y-2">
-              {warpBlocks.map((block, i) => (
-                <WarpCommandBlock key={i} block={block} index={i} />
-              ))}
+              {/* Block 1: whoami — typed out line by line */}
+              <motion.div
+                className="rounded-xl bg-[var(--color-warp-block)] border border-white/[0.06] overflow-hidden"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+              >
+                <div className="px-4 py-2.5 flex items-center gap-2 border-b border-white/[0.04]">
+                  <span className="text-accent-purple font-mono text-xs">vaishakh in ~/dev</span>
+                  <span className="text-white/20 font-mono text-xs">$</span>
+                  <span className="text-foreground font-mono text-xs font-medium">whoami --verbose</span>
+                </div>
+                <TypingLines lines={whoamiLines} baseDelay={1.2} />
+              </motion.div>
+
+              {/* Block 2: neofetch-style skills */}
+              <motion.div
+                className="rounded-xl bg-[var(--color-warp-block)] border border-white/[0.06] overflow-hidden"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 1.8 }}
+              >
+                <div className="px-4 py-2.5 flex items-center gap-2 border-b border-white/[0.04]">
+                  <span className="text-accent-purple font-mono text-xs">vaishakh in ~/dev</span>
+                  <span className="text-white/20 font-mono text-xs">$</span>
+                  <span className="text-foreground font-mono text-xs font-medium">neofetch --skills</span>
+                </div>
+                <div className="px-4 py-3 text-left space-y-1">
+                  {skillRows.map((row, i) => (
+                    <SkillRow key={row.label} {...row} baseDelay={2.0} index={i} />
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Block 3: status */}
+              <motion.div
+                className="rounded-xl bg-[var(--color-warp-block)] border border-white/[0.06] overflow-hidden"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 2.8 }}
+              >
+                <div className="px-4 py-2.5 flex items-center gap-2 border-b border-white/[0.04]">
+                  <span className="text-accent-purple font-mono text-xs">vaishakh in ~/dev</span>
+                  <span className="text-white/20 font-mono text-xs">$</span>
+                  <span className="text-foreground font-mono text-xs font-medium">echo $STATUS</span>
+                </div>
+                <div className="px-4 py-3 text-left">
+                  <motion.p
+                    className="font-mono text-xs text-white/50"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 3.1 }}
+                  >
+                    Ready to build something extraordinary.
+                  </motion.p>
+                </div>
+              </motion.div>
 
               {/* Active input block */}
               <motion.div
                 className="rounded-xl border border-accent-terminal/30 bg-accent-terminal/[0.03] px-4 py-2.5 flex items-center gap-2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 2.8 }}
+                transition={{ delay: 3.4 }}
               >
                 <span className="text-accent-purple font-mono text-xs">vaishakh in ~/dev</span>
                 <span className="text-white/20 font-mono text-xs">$</span>

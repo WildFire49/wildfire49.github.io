@@ -4,7 +4,7 @@
 
 @theme {
   --font-heading: 'Instrument Serif', serif;
-  --font-body: 'Barlow', sans-serif;
+  --font-body: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   --color-background: #0E0E10;
