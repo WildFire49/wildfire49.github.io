@@ -1,5 +1,5 @@
 import { FaPython, FaReact, FaDocker, FaAws, FaNodeJs } from 'react-icons/fa'
-import { SiTypescript, SiNextdotjs, SiPostgresql } from 'react-icons/si'
+import { SiTypescript, SiNextdotjs, SiPostgresql, SiRedis, SiCelery, SiFastapi, SiTailwindcss, SiDuckdb } from 'react-icons/si'
 import { SectionBadge } from './ui/SectionBadge'
 import { FloatingIcon } from './ui/FloatingIcon'
 import { FadeInUp } from './ui/FadeInUp'
@@ -10,9 +10,14 @@ const techs = [
   { icon: FaReact, label: 'React', color: '#61DAFB' },
   { icon: FaNodeJs, label: 'Node.js', color: '#339933' },
   { icon: SiNextdotjs, label: 'Next.js', color: '#ffffff' },
+  { icon: SiFastapi, label: 'FastAPI', color: '#009688' },
+  { icon: SiTailwindcss, label: 'Tailwind', color: '#06B6D4' },
   { icon: FaDocker, label: 'Docker', color: '#2496ED' },
   { icon: FaAws, label: 'AWS', color: '#FF9900' },
   { icon: SiPostgresql, label: 'PostgreSQL', color: '#4169E1' },
+  { icon: SiRedis, label: 'Redis', color: '#DC382D' },
+  { icon: SiCelery, label: 'Celery', color: '#37814A' },
+  { icon: SiDuckdb, label: 'DuckDB', color: '#FFF000' },
 ]
 
 export function TechStack() {
